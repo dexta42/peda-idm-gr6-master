@@ -1,0 +1,41 @@
+
+
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>profile</ion-title>
+</ion-navbar>
+
+
+	
+
+
+<ion-content padding>
+  
+  
+  <ion-list>
+  	<div class="item">
+      Pseudo : {{user.login}}
+    </div>
+    <div class="item">
+      Prenom : {{user.firstname}}
+    </div>
+    <div class="item">
+      Nom : {{user.lastname}}
+    </div>
+    <div class="item">
+      Description : {{user.description}}
+    </div>
+
+  </ion-list>
+  <div class="list list-inset">
+
+    
+</div>
+
+<button class="button button-positive" (click)="goToUpdateProfile(session)">
+  Modifier
+</button>
+  
+</ion-content>

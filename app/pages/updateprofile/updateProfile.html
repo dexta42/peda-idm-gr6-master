@@ -1,0 +1,38 @@
+
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>Update profile</ion-title>
+</ion-navbar>
+
+<ion-content padding>
+  <form #updateForm="ngForm" ng-controller="ExampleController">
+      <ion-item>
+        <ion-label >Firstname</ion-label>
+        <ion-input [(ngModel)]="update.firstname" ngControl="firstname" type="text" #firstname="ngForm" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+         <ion-label >Lastname</ion-label>
+        <ion-input [(ngModel)]="update.lastname" ngControl="lastname" type="text" #username="ngForm"></ion-input>
+      </ion-item>
+     
+      <ion-item> 
+        <ion-label >Username</ion-label>
+        <ion-input [(ngModel)]="update.username"ngControl="username" type="text" #username="ngForm"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label >Password</ion-label>
+        <ion-input [(ngModel)]="update.password" ngControl="username" type="text" #password="ngForm"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label >Description</ion-label>
+        <ion-input [(ngModel)]="update.description" ngControl="description" type="text" #description="ngForm"></ion-input>
+      </ion-item>
+    <button (click)="onUpdate(updateForm,session)"  type="submit" light block>Update</button>
+  </form>
+  
+</ion-content>

@@ -1,0 +1,10 @@
+{
+"users": [
+	{
+		"firstName":"yanis",
+		"lastName":"MONTEIRO",
+		"username":"login",
+		"password" : "mdp"
+	}
+]
+}
