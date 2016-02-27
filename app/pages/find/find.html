@@ -1,0 +1,37 @@
+
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>profile</ion-title>
+</ion-navbar>
+
+
+<ion-content padding>
+<ion-list>
+
+  <ion-card *ngFor="#user of users">
+    <ion-card-header>
+      Header
+    </ion-card-header>
+    <ion-card-content>
+      <p>Pseudo : {{user.login}}</p>
+      <p>Prenom : {{user.firstname}}</p>
+      <p>Nom : {{user.lastname}}</p>
+      <p>Description : {{user.description}}</p>
+      <button danger (click)="Dislike(user.id)">
+        <ion-icon name="md-thumbs-down"></ion-icon>
+        Dislike
+      </button>
+      <button secondary (click)="Match(user.id)">
+        <ion-icon name="md-flame"></ion-icon>
+        Match
+      </button>
+      
+    </ion-card-content>
+  </ion-card>
+</ion-list>
+
+ 
+
+</ion-content>

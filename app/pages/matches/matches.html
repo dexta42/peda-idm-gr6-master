@@ -1,0 +1,18 @@
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>profile</ion-title>
+</ion-navbar>
+
+
+<ion-content padding>
+  <ion-list inset>
+  <ion-item *ngFor="#match of matchs" (click)="itemSelected(item)">
+    {{match.firstname}} {{match.lastname}}
+  </ion-item>
+</ion-list> 
+
+ 
+
+</ion-content>

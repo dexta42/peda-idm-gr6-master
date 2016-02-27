@@ -54,7 +54,10 @@ export class UserData {
       session.users.push({"id":0,"firstname":"admin","lastname":"admin","login":"admin","password":"admin","description":" "});
       localStorage.setItem('session', JSON.stringify(session));
     }
-    
+    if(localStorage.getItem('matches')==null){
+      matches= [];
+      localStorage.setItem('matches', JSON.stringify(matches));
+    }
   }
 
   hasFavorite(sessionName) {
@@ -90,9 +93,103 @@ export class UserData {
 
   getLogged(){
     var user = JSON.parse(localStorage.getItem('user'));
-    console.log(user.firstname);
     return user;
 
+  }
+
+  addMatch(idA, idB){
+    var matches = JSON.parse(localStorage.getItem('matches'));
+    if(matches==null){
+      matches=[];
+    }
+    var finded = false;
+    for(i=0;i<matches.length;i++){
+      if(matches[i].idA==idB && matches[i].idB==idA){
+        matches[i].status="confirmed";
+        finded=true;
+      }
+    }
+    if(finded==false){
+      var match = {"idA":idA,"idB":idB,"status":"send"};
+      matches.push(match);
+    }
+    
+    localStorage.setItem('matches', JSON.stringify(matches));
+  }
+
+  addDislike(idA,idB){
+    var matches = JSON.parse(localStorage.getItem('matches'));
+    var finded=false;
+    if(matches==null){
+      matches=[];
+    }
+    for(i=0;i<matches.length;i++){
+      if(matches[i].idA==idB && matches[i].idB==idA){
+        matches[i].status="disliked";
+        finded=true;
+      }
+    }
+
+    if(finded==false){
+      var match = {"idA":idA,"idB":idB,"status":"disliked"};
+      matches.push(match);
+    }
+    
+    localStorage.setItem('matches', JSON.stringify(matches));
+  }
+
+  findMatches(userId){
+    var matches = JSON.parse(localStorage.getItem('matches'));
+    var session = JSON.parse(localStorage.getItem('session'));
+    var idMatches = [];
+    var userMatches = [];
+    for(i=0;i<matches.length;i++){
+      if(matches[i].idA == userId && matches[i].status =="confirmed"){
+        idMatches.push(matches[i].idB);
+      }
+      else if(matches[i].idB == userId && matches[i].status =="confirmed"){
+        idMatches.push(matches[i].idA);
+      }
+    }
+
+    for(i=0;i<session.users.length;i++){
+      for(j=0;j<idMatches.length;j++){
+        if(session.users[i].id==idMatches[j]){
+          userMatches.push(session.users[i]);
+        }
+      }
+    }
+    return userMatches;
+  }
+
+  findUser(){
+    var users = [];
+    var usersMatched = [];
+    var user = JSON.parse(localStorage.getItem('user'));
+    var matches = JSON.parse(localStorage.getItem('matches'));
+    var session = JSON.parse(localStorage.getItem('session'));
+    usersMatched.push(user.id);
+    for(i=0;i<matches.length;i++){
+      if(matches[i].idA == user.id){
+        usersMatched.push(matches[i].idB);
+      }
+      else if(matches[i].idB == user.id && matches[i].status != "send" ){
+        usersMatched.push(matches[i].idA);
+      }
+    }
+
+    for(i=0;i<session.users.length;i++){
+      var isMatched = false;
+      for(j=0;j<usersMatched.length;j++){
+        if(session.users[i].id == usersMatched[j]){
+          isMatched = true;
+        }
+      }
+      if (isMatched==false) {
+        users.push(session.users[i]);
+      }
+    }
+       return users;
   }
 
   updateUser(newuser){

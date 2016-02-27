@@ -89,4 +89,6 @@ class ConferenceApp {
       return menuItem.title === title
     })
   }
+
+  
 }
